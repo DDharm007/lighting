@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', 'Inter', sans-serif;
+  color: #000000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideLeft { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes slideRight { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes zoomIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+@keyframes bounce {
+  0% { opacity: 0; transform: translateY(-40px); }
+  60% { opacity: 1; transform: translateY(10px); }
+  80% { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
+}
+@keyframes flipX {
+  from { opacity: 0; transform: perspective(400px) rotateY(90deg); }
+  to { opacity: 1; transform: perspective(400px) rotateY(0); }
+}
+@keyframes rotateIn {
+  from { opacity: 0; transform: rotate(-200deg); }
+  to { opacity: 1; transform: rotate(0); }
+}
+
+
+/* ── Studioo Design Tokens ── */
+:root {
+  --primary: 262 83% 65%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 225 30% 15%;
+  --secondary-foreground: 213 31% 85%;
+  --border: 225 30% 16%;
+  --muted: 224 35% 13%;
+  --muted-foreground: 215 20% 55%;
+  --accent: 252 95% 70%;
+  --accent-foreground: 210 40% 98%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 210 40% 98%;
+  --background: 224 50% 7%;
+  --foreground: 213 31% 95%;
+  --ring: 262 83% 65%;
+  --card: 223 45% 10%;
+  --card-foreground: 213 31% 95%;
+  --input: 225 30% 16%;
+
+  /* Direct color tokens used in nav buttons and component styles */
+  --color-primary: hsl(262 83% 65%);
+  --color-primary-foreground: hsl(210 40% 98%);
+  --color-secondary: hsl(225 30% 15%);
+  --color-secondary-foreground: hsl(213 31% 85%);
+  --color-accent: hsl(252 95% 70%);
+  --color-accent-foreground: hsl(210 40% 98%);
+  --color-border: hsl(225 30% 16%);
+  --color-muted: hsl(224 35% 13%);
+  --color-muted-foreground: hsl(215 20% 55%);
+
+  /* Button active states */
+  --btn-transition: all 0.15s ease;
+}
+
+/* Typography reset — prevent browser-default margins from causing alignment drift */
+h1, h2, h3, h4, h5, h6, p, blockquote, figure, ul, ol, dl, dd {
+  margin: 0;
+}
+
+/* Active press effect matching CanvasElement.tsx button behavior */
+button:active { transform: scale(0.97); }
+a:active { opacity: 0.8; }
+
+
+
+/* Responsive alignment parity with Studioo preview */
+[class^="el-container-"], [class*=" el-container-"],
+[class^="el-section-"], [class*=" el-section-"],
+[class^="el-card-"], [class*=" el-card-"],
+[class^="el-header-"], [class*=" el-header-"],
+[class^="el-footer-"], [class*=" el-footer-"],
+[class^="el-form-"], [class*=" el-form-"],
+[class^="el-nav-"], [class*=" el-nav-"],
+[class^="el-grid-"], [class*=" el-grid-"],
+[class^="el-flexRow-"], [class*=" el-flexRow-"],
+[class^="el-flexCol-"], [class*=" el-flexCol-"],
+[class^="el-accordion-"], [class*=" el-accordion-"],
+[class^="el-tabs-"], [class*=" el-tabs-"],
+[class^="el-table-"], [class*=" el-table-"],
+[class^="el-product-"], [class*=" el-product-"],
+[class^="el-testimonialGrid-"], [class*=" el-testimonialGrid-"],
+[class^="el-teamGrid-"], [class*=" el-teamGrid-"],
+[class^="el-customBlock-"], [class*=" el-customBlock-"] {
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  /* NOTE: overflow is intentionally NOT set here.
+   * Forcing overflow:hidden clips SVG-based Infinity components and charts.
+   * Each element's overflow is controlled by its own inline style. */
+}
+
+/* Ensure typography text wrapping to prevent container breakout */
+h1, h2, h3, h4, h5, h6, p, span, a, blockquote, li {
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  [class^="el-flexRow-"], [class*=" el-flexRow-"],
+  [class^="el-header-"], [class*=" el-header-"],
+  [class^="el-footer-"], [class*=" el-footer-"] {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+  }
+
+  [class^="el-grid-"], [class*=" el-grid-"],
+  [class^="el-gallery-"], [class*=" el-gallery-"],
+  [class^="el-testimonialGrid-"], [class*=" el-testimonialGrid-"],
+  [class^="el-teamGrid-"], [class*=" el-teamGrid-"] {
+    grid-template-columns: minmax(0, 1fr) !important;
+    width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  img, video, iframe {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+}
+
